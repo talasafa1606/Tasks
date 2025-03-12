@@ -7,5 +7,6 @@ public class BankDBContext: DbContext
     public BankDBContext(DbContextOptions<BankDBContext> options) : base(options) { }
     
     public DbSet<TransactionLog> TransactionLogs { get; set; }
-    
+    public DbSet<AccountTransaction> AccountTransactions { get; set; }
+
 }
