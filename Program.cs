@@ -1,6 +1,7 @@
 using MassTransit;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Task1Bank.Consumers;
 using Task1Bank.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,28 +14,35 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BankDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddMassTransit(x =>
 {
+    var config = builder.Configuration.GetSection("RabbitMQ");
+    string? host = config["HostName"];
+    string? username = config["UserName"] ?? "guest";
+    string? password = config["Password"] ?? "guest";
+
+    if (string.IsNullOrEmpty(host))
+    {
+        throw new ArgumentNullException(nameof(host), "RabbitMQ HostName is missing from configuration.");
+    }
+
+    x.AddConsumer<LogConsumer>();
+
     x.UsingRabbitMq((context, cfg) =>
     {
-        var config = builder.Configuration.GetSection("RabbitMQ");
-        string? host = config["HostName"];
-        string? username = config["UserName"];
-        string? password = config["Password"];
-
-        if (string.IsNullOrEmpty(host))
-        {
-            throw new ArgumentNullException(nameof(host), "RabbitMQ HostName is missing from configuration.");
-        }
-
         cfg.Host(host, "/", h =>
         {
-            h.Username(username ?? "guest");
-            h.Password(password ?? "guest");
+            h.Username(username);
+            h.Password(password);
+        });
+
+        cfg.ReceiveEndpoint("logging-service", e =>
+        {
+            e.ConfigureConsumer<LogConsumer>(context);
         });
     });
 });
+
 
 
 var app = builder.Build();
