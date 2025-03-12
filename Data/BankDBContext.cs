@@ -9,6 +9,8 @@ public class BankDBContext: DbContext
     public DbSet<TransactionLog> TransactionLogs { get; set; }
     public DbSet<AccountTransaction> AccountTransactions { get; set; }
     public DbSet<Log> Logs { get; set; }
+    public DbSet<TransactionEvent> TransactionEvents { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

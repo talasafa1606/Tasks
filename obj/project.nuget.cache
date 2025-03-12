@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kjYJMMv4fZ4=",
+  "dgSpecHash": "Q4qNzgEct38=",
   "success": true,
   "projectFilePath": "C:\\Users\\hp\\RiderProjects\\Task1Bank\\Task1Bank\\Task1Bank.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\hp\\.nuget\\packages\\masstransit\\8.3.8-develop.2231\\masstransit.8.3.8-develop.2231.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\masstransit.abstractions\\8.3.8-develop.2231\\masstransit.abstractions.8.3.8-develop.2231.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\masstransit.rabbitmq\\8.3.8-develop.2231\\masstransit.rabbitmq.8.3.8-develop.2231.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
+    "C:\\Users\\hp\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.aspnetcore.odata\\9.1.0\\microsoft.aspnetcore.odata.9.1.0.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\hp\\.nuget\\packages\\microsoft.build.framework\\17.8.3\\microsoft.build.framework.17.8.3.nupkg.sha512",

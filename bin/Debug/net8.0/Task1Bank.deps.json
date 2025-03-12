@@ -10,6 +10,7 @@
         "dependencies": {
           "MassTransit": "8.3.8-develop.2231",
           "MassTransit.RabbitMQ": "8.3.8-develop.2231",
+          "MediatR": "12.0.1",
           "Microsoft.AspNetCore.OData": "9.1.0",
           "Microsoft.EntityFrameworkCore": "9.0.0",
           "Microsoft.EntityFrameworkCore.Design": "9.0.0",
@@ -62,6 +63,26 @@
           "lib/net8.0/MassTransit.RabbitMqTransport.dll": {
             "assemblyVersion": "8.3.8.0",
             "fileVersion": "8.3.8.0"
+          }
+        }
+      },
+      "MediatR/12.0.1": {
+        "dependencies": {
+          "MediatR.Contracts": "2.0.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/MediatR.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.1.0"
+          }
+        }
+      },
+      "MediatR.Contracts/2.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "assemblyVersion": "2.0.1.0",
+            "fileVersion": "2.0.1.0"
           }
         }
       },
@@ -878,6 +899,20 @@
       "sha512": "sha512-Tpr5HP2F2iWsKoBsO3dTDtXxmXFhh2YYrOkDl3+rBGOiithcKKYr3e1DJN0FWjDLRCR62pdfzO3YTO8K2aKWLw==",
       "path": "masstransit.rabbitmq/8.3.8-develop.2231",
       "hashPath": "masstransit.rabbitmq.8.3.8-develop.2231.nupkg.sha512"
+    },
+    "MediatR/12.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vfxplMielft+g5jxGO31xjjQpI6yqe4r2YGt0Q8x23phwbpJNmUQGY+cCNNFMKKViXRM67ajUlAiwirMeuJWTQ==",
+      "path": "mediatr/12.0.1",
+      "hashPath": "mediatr.12.0.1.nupkg.sha512"
+    },
+    "MediatR.Contracts/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
+      "path": "mediatr.contracts/2.0.1",
+      "hashPath": "mediatr.contracts.2.0.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.OData/9.1.0": {
       "type": "package",

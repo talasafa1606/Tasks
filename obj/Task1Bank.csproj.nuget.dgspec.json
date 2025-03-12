@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[8.3.8-develop.2231, )"
             },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "Microsoft.AspNetCore.OData": {
               "target": "Package",
               "version": "[9.1.0, )"

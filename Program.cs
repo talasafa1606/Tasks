@@ -1,10 +1,13 @@
+using System.Reflection;
 using MassTransit;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Task1Bank.Consumers;
 using Task1Bank.Data;
+using Task1Bank.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllers()
     .AddOData(options => options.Select().Filter().OrderBy().Count().SetMaxTop(100));
@@ -14,6 +17,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BankDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddScoped<IEventService, EventService>();
+
 builder.Services.AddMassTransit(x =>
 {
     var config = builder.Configuration.GetSection("RabbitMQ");

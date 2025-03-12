@@ -9,6 +9,7 @@
     <ItemGroup>
         <PackageReference Include="MassTransit" Version="8.3.8-develop.2231" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="8.3.8-develop.2231" />
+        <PackageReference Include="MediatR" Version="12.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.1.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
