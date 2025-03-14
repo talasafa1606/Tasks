@@ -1,5 +1,6 @@
 ﻿using Task1Bank.Data;
 using Task1Bank.Entities;
+using Task1Bank.Entities.DTOs;
 using Task1Bank.Services;
 
 namespace Task1Bank.Controllers;
@@ -16,15 +17,16 @@ using System.Threading.Tasks;
 public class AccountsController : ControllerBase
 {
     private readonly BankDBContext _context;
+    private readonly IAccountService _accountService;
     private readonly ILogger<AccountsController> _logger;
     private readonly IBankingService _bankingService;
     
-    public AccountsController(BankDBContext context, ILogger<AccountsController> logger, IBankingService bankingService)
+    public AccountsController(IAccountService accountService,BankDBContext context, ILogger<AccountsController> logger, IBankingService bankingService)
     {
         _context = context;
         _logger = logger;
         _bankingService = bankingService;
-
+        _accountService = accountService;
     }
     [HttpPost("transfer")]
     public async Task<ActionResult<TransferResponse>> Transfer([FromBody] TransferRequest request)
@@ -48,7 +50,21 @@ public class AccountsController : ControllerBase
             
         return Ok(response);
     }
+    [HttpGet("{accountId}/details")]
+    public async Task<ActionResult<AccountDetailsDTO>> GetAccountDetails(
+        int accountId, 
+        [FromHeader(Name = "Accept-Language")] string languageHeader)
+    {
+        string language = !string.IsNullOrEmpty(languageHeader) ? languageHeader : "en";
     
+        var accountDetails = await _accountService.GetAccountDetailsAsync(accountId, language);
+    
+        if (accountDetails == null)
+            return NotFound();
+        
+        return Ok(accountDetails);
+    }
+
     
    //endpoints of prev lab commented bcz i changed attributes 
 /*

@@ -2,19 +2,22 @@ using System.Reflection;
 using MassTransit;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Task1Bank.Consumers;
 using Task1Bank.Data;
+using Task1Bank.Middlewares;
 using Task1Bank.Services;
 using Task1Bank.UOF;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddControllers()
     .AddOData(options => options.Select().Filter().OrderBy().Count().SetMaxTop(100));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
 
 builder.Services.AddDbContext<BankDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -22,9 +25,12 @@ builder.Services.AddDbContext<BankDBContext>(options =>
 builder.Services.AddScoped<DbContext, BankDBContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IBankingService, BankingService>();
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<ILocalizationService, LocalizationService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-builder.Services.AddScoped<IEventService, EventService>();
 
 builder.Services.AddMassTransit(x =>
 {
@@ -55,11 +61,8 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -68,6 +71,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseMiddleware<LanguageMiddleware>();
 app.MapControllers();
-
 app.Run();

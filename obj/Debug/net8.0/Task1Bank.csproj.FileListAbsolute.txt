@@ -144,3 +144,13 @@ C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\bin\Debug\net8.0\zh-Hant\Microsoft
 C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\bin\Debug\net8.0\MediatR.dll
 C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\bin\Debug\net8.0\MediatR.Contracts.dll
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\bin\Debug\net8.0\de\Task1Bank.resources.dll
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\bin\Debug\net8.0\fr\Task1Bank.resources.dll
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\obj\Debug\net8.0\Task1Bank.Resources.Languages.resources
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\obj\Debug\net8.0\Task1Bank.Resources.Languages.de.resources
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\obj\Debug\net8.0\Task1Bank.Resources.Languages.fr.resources
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\obj\Debug\net8.0\Task1Bank.csproj.GenerateResource.cache
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\obj\Debug\net8.0\de\Task1Bank.resources.cs
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\obj\Debug\net8.0\de\Task1Bank.resources.dll
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\obj\Debug\net8.0\fr\Task1Bank.resources.cs
+C:\Users\hp\RiderProjects\Task1Bank\Task1Bank\obj\Debug\net8.0\fr\Task1Bank.resources.dll

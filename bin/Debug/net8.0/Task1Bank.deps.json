@@ -20,6 +20,14 @@
         },
         "runtime": {
           "Task1Bank.dll": {}
+        },
+        "resources": {
+          "de/Task1Bank.resources.dll": {
+            "locale": "de"
+          },
+          "fr/Task1Bank.resources.dll": {
+            "locale": "fr"
+          }
         }
       },
       "Humanizer.Core/2.14.1": {

@@ -11,4 +11,6 @@ public class Account
     public DateTime LastUpdatedDate { get; set; }
     
     public ICollection<AccountTransaction> Transactions { get; set; }
+
+    public string PreferredLanguage { get; set; } = "en";
 }
