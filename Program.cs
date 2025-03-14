@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Task1Bank.Consumers;
 using Task1Bank.Data;
 using Task1Bank.Services;
+using Task1Bank.UOF;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BankDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<DbContext, BankDBContext>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IBankingService, BankingService>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.AddScoped<IEventService, EventService>();

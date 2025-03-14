@@ -9,6 +9,7 @@ public class BankDBContext: DbContext
     public DbSet<TransactionLog> TransactionLogs { get; set; }
     public DbSet<AccountTransaction> AccountTransactions { get; set; }
     public DbSet<Log> Logs { get; set; }
+    public DbSet<Account> Accounts { get; set; }
     public DbSet<TransactionEvent> TransactionEvents { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,5 +24,36 @@ public class BankDBContext: DbContext
             
         modelBuilder.Entity<Log>()
             .HasIndex(l => l.RouteURL);
+        
+        
+        modelBuilder.Entity<Account>()
+            .HasKey(a => a.Id);
+            
+        modelBuilder.Entity<Account>()
+            .Property(a => a.Balance)
+            .HasColumnType("decimal(18,2)");
+            
+        modelBuilder.Entity<Account>()
+            .HasIndex(a => a.AccountNumber)
+            .IsUnique();
+            
+        modelBuilder.Entity<AccountTransaction>()
+            .HasKey(t => t.TransactionId);
+            
+        modelBuilder.Entity<AccountTransaction>()
+            .Property(t => t.Amount)
+            .HasColumnType("decimal(18,2)");
+            
+        modelBuilder.Entity<AccountTransaction>()
+            .HasOne(t => t.FromAccount)
+            .WithMany(a => a.Transactions)
+            .HasForeignKey(t => t.FromAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+            
+        modelBuilder.Entity<AccountTransaction>()
+            .HasOne(t => t.ToAccount)
+            .WithMany()
+            .HasForeignKey(t => t.ToAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

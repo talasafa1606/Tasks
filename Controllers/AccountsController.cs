@@ -1,4 +1,6 @@
 ﻿using Task1Bank.Data;
+using Task1Bank.Entities;
+using Task1Bank.Services;
 
 namespace Task1Bank.Controllers;
 
@@ -15,13 +17,41 @@ public class AccountsController : ControllerBase
 {
     private readonly BankDBContext _context;
     private readonly ILogger<AccountsController> _logger;
-
-    public AccountsController(BankDBContext context, ILogger<AccountsController> logger)
+    private readonly IBankingService _bankingService;
+    
+    public AccountsController(BankDBContext context, ILogger<AccountsController> logger, IBankingService bankingService)
     {
         _context = context;
         _logger = logger;
-    }
+        _bankingService = bankingService;
 
+    }
+    [HttpPost("transfer")]
+    public async Task<ActionResult<TransferResponse>> Transfer([FromBody] TransferRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+            
+        var (success, message) = await _bankingService.TransferFundsAsync(
+            request.FromAccountId, 
+            request.ToAccountId, 
+            request.Amount);
+            
+        var response = new TransferResponse
+        {
+            Success = success,
+            Message = message
+        };
+        
+        if (!success)
+            return BadRequest(response);
+            
+        return Ok(response);
+    }
+    
+    
+   //endpoints of prev lab commented bcz i changed attributes 
+/*
     [HttpGet("common-transactions")]
     public async Task<IActionResult> GetCommonTransactions([FromQuery] List<long> accountIds)
     {
@@ -102,4 +132,7 @@ public class AccountsController : ControllerBase
             return StatusCode(500, "Something went wrong while processing your request.");
         }
     }
+
+*/
+    
 }
