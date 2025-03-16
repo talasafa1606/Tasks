@@ -2,5 +2,5 @@
 
 public interface IBankingService
 {
-    Task<(bool Success, string Message)> TransferFundsAsync(int fromAccountId, int toAccountId, decimal amount);
+    Task<(bool Success, string Message)> TransferFundsAsync(Guid fromAccountId, Guid toAccountId, decimal amount);
 }

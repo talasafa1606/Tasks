@@ -14,7 +14,8 @@ public class BankingService : IBankingService
         _logger = logger;
     }
     
-    public async Task<(bool Success, string Message)> TransferFundsAsync(int fromAccountId, int toAccountId, decimal amount)
+    public async Task<(bool Success, string Message)> TransferFundsAsync(Guid fromAccountId, Guid toAccountId,
+        decimal amount)
     {
         try
         {
@@ -67,5 +68,60 @@ public class BankingService : IBankingService
             
             return (false, "An error occurred during the transfer");
         }
+    }
+    
+    public async Task DepositAsync(Guid accountId, decimal amount, string details)
+    {
+        if (amount <= 0)
+            throw new ArgumentException("Deposit amount must be greater than zero.", nameof(amount));
+
+        var account = await _unitOfWork.Accounts.GetByIdAsync(accountId);
+    
+        if (account == null)
+            throw new InvalidOperationException("Account not found.");
+
+        account.Balance += amount;
+        account.LastUpdatedDate = DateTime.UtcNow;
+
+        var transaction = new AccountTransaction
+        {
+            FromAccountId = null,
+            ToAccountId = accountId,
+            Amount = amount,
+            Timestamp = DateTime.UtcNow,
+            TransactionType = "Deposit",
+            Details = details,
+            Status = "Completed"
+        };
+
+        await _unitOfWork.Transactions.AddAsync(transaction);
+        await _unitOfWork.CompleteAsync();
+    }
+    public async Task WithdrawAsync(Guid accountId, decimal amount, string details)
+    {
+        if (amount <= 0)
+            throw new ArgumentException("Withdrawal amount must be greater than zero.", nameof(amount));
+
+        var account = await _unitOfWork.Accounts.GetByIdAsync(accountId);
+    
+        if (account == null)
+            throw new InvalidOperationException("Account not found.");
+
+        account.Balance -= amount;
+        account.LastUpdatedDate = DateTime.UtcNow;
+
+        var transaction = new AccountTransaction
+        {
+            FromAccountId = null,
+            ToAccountId = accountId,
+            Amount = amount,
+            Timestamp = DateTime.UtcNow,
+            TransactionType = "Withdrawal",
+            Details = details,
+            Status = "Completed"
+        };
+
+        await _unitOfWork.Transactions.AddAsync(transaction);
+        await _unitOfWork.CompleteAsync();
     }
 }

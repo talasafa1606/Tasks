@@ -5,10 +5,10 @@ namespace Task1Bank.Entities;
 public class TransferRequest
 {
     [Required]
-    public int FromAccountId { get; set; }
+    public Guid FromAccountId { get; set; }
     
     [Required]
-    public int ToAccountId { get; set; }
+    public Guid ToAccountId { get; set; }
     
     [Required]
     [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero")]

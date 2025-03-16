@@ -8,7 +8,7 @@ public class AccountDetailsDTO
     public string AccountNameLabel { get; set; }
     public string AccountName { get; set; }
     public string BalanceLabel { get; set; }
-    public string Balance { get; set; }
+    public decimal Balance { get; set; }
     public string StatusLabel { get; set; }
     public string Status { get; set; }
     public string CreatedDateLabel { get; set; }

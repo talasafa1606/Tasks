@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 public class AccountTransaction
 {
     [Key]
-    public long TransactionId { get; set; }
+    public Guid TransactionId { get; set; }
     
-    public int? FromAccountId { get; set; }
-    public int? ToAccountId { get; set; }
+    public Guid? FromAccountId { get; set; }
+    public Guid? ToAccountId { get; set; }
     public string TransactionType { get; set; }
     public decimal Amount { get; set; }
     public DateTime Timestamp { get; set; }

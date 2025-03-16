@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Task1Bank.Entities;
 using Task1Bank.Entities.DTOs;
 using Task1Bank.UOF;
 
@@ -20,7 +21,7 @@ public class AccountService : IAccountService
         _logger = logger;
     }
     
-    public async Task<AccountDetailsDTO> GetAccountDetailsAsync(int accountId, string language)
+    public async Task<AccountDetailsDTO> GetAccountDetailsAsync(Guid accountId, string language)
     {
         _logger.LogInformation($"Retrieving account details for account {accountId} in language {language}");
         
@@ -45,7 +46,7 @@ public class AccountService : IAccountService
             AccountNumber = account.AccountNumber,
             AccountNameLabel = _localizationService.GetLocalizedString("AccountName", language),
             BalanceLabel = _localizationService.GetLocalizedString("Balance", language),
-            Balance = account.Balance.ToString("C", cultureInfo),
+            Balance = account.Balance,
             StatusLabel = _localizationService.GetLocalizedString("Status", language),
             Status = _localizationService.GetLocalizedString(account.IsActive ? "Active" : "Inactive", language),
             CreatedDateLabel = _localizationService.GetLocalizedString("CreatedDate", language),
@@ -53,5 +54,32 @@ public class AccountService : IAccountService
             LastUpdatedLabel = _localizationService.GetLocalizedString("LastUpdated", language),
             LastUpdated = account.LastUpdatedDate.ToString("d", cultureInfo)
         };
+    }
+
+    public Task<AccountDetailsDTO> GetAccountDetailsAsync(int accountId, string language)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<AccountDetailsDTO> CreateAccountAsync(CreateAccountDTO createAccountDto)
+    {
+        _logger.LogInformation($"Creating a new account for {createAccountDto.CustomerName}");
+
+        var newAccount = new Account
+        {
+            Id = Guid.NewGuid(),
+            AccountNumber = createAccountDto.AccountNumber,
+            CustomerName = createAccountDto.CustomerName,
+            Balance = createAccountDto.InitialDeposit,
+            IsActive = true,
+            CreatedDate = DateTime.UtcNow,
+            LastUpdatedDate = DateTime.UtcNow,
+            PreferredLanguage = createAccountDto.PreferredLanguage
+        };
+
+        await _unitOfWork.Accounts.AddAsync(newAccount);
+        await _unitOfWork.CompleteAsync();
+
+        return await GetAccountDetailsAsync(newAccount.Id, createAccountDto.PreferredLanguage);
     }
 }

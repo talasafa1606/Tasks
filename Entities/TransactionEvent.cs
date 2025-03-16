@@ -8,7 +8,7 @@ public class TransactionEvent
     [Key]
     public long Id { get; set; }
     
-    public long TransactionId { get; set; }
+    public Guid TransactionId { get; set; }
     
     public string EventType { get; set; }
     
@@ -18,4 +18,5 @@ public class TransactionEvent
     public DateTime Timestamp { get; set; }
     
     public int Version { get; set; }
+    public bool isRead { get; set; }
 }

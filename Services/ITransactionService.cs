@@ -4,5 +4,5 @@ namespace Task1Bank.Services;
 
 public interface ITransactionService
 {
-    Task<TransactionNotificationDTO> GetTransactionNotificationAsync(int transactionId, string language);
+    Task<TransactionNotificationDTO> GetTransactionNotificationAsync(Guid transactionId, string language);
 }
